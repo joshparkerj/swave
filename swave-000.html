@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>S W A V E</title>
+    <style>
+	body {
+  overflow: hidden;
+  margin: 0;
+}
+
+@keyframes sunset {
+  from {
+    top: 0;
+	color: #fff0;
+	background-color: #0000;
+  }
+
+  50% {
+    top: 150%;
+	color: #fff1;
+	background-color: #0001;
+  }
+
+  to {
+    top: 300%;
+	color: #ffff;
+	background-color: #0004;
+  }
+}
+
+.skybox {
+  position: relative;
+  animation: sunset 30s linear 1;
+  top: 300%;
+  color: #fff;
+  background-color: #0004;
+}
+
+.star {
+  position: absolute;
+  z-index: -1;
+}
+
+.sun {
+  --glow-size: 16px;
+  --glow-white: #fa0;
+  --glow-color: #808;
+  background-image: linear-gradient(0deg, #d20, #f80);
+  height: 40vh;
+  width: 40vh;
+  position: relative;
+  margin: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 calc(7 * var(--glow-size)) var(--glow-white),
+  0 0 calc(11 * var(--glow-size)) var(--glow-white),
+  0 0 calc(17 * var(--glow-size)) var(--glow-white),
+  0 0 calc(26 * var(--glow-size)) var(--glow-white),
+  0 0 calc(40 * var(--glow-size)) var(--glow-color),
+  0 0 calc(62 * var(--glow-size)) var(--glow-color),
+  0 0 calc(96 * var(--glow-size)) var(--glow-color),
+  0 0 calc(150 * var(--glow-size)) var(--glow-color);
+}
+
+.sky {
+  background-image: linear-gradient(135deg, #048, #204);
+  height: 50vh;
+  position: relative;
+  z-index: -1;
+}
+
+.ground {
+  background-image: linear-gradient(135deg, #024, #102);
+  height: 50vh;
+  position: relative;
+}
+
+.edge {
+  --glow-size: 0.25px;
+  --glow-color: #09f;
+  box-shadow: 0 0 calc(7 * var(--glow-size)) white,
+  0 0 calc(11 * var(--glow-size)) white,
+  0 0 calc(17 * var(--glow-size)) white,
+  0 0 calc(26 * var(--glow-size)) white,
+  0 0 calc(40 * var(--glow-size)) var(--glow-color),
+  0 0 calc(62 * var(--glow-size)) var(--glow-color),
+  0 0 calc(96 * var(--glow-size)) var(--glow-color),
+  0 0 calc(150 * var(--glow-size)) var(--glow-color),
+  inset 0 0 calc(7 * var(--glow-size)) white,
+  inset 0 0 calc(11 * var(--glow-size)) white,
+  inset 0 0 calc(17 * var(--glow-size)) white,
+  inset 0 0 calc(26 * var(--glow-size)) white,
+  inset 0 0 calc(40 * var(--glow-size)) var(--glow-color),
+  inset 0 0 calc(62 * var(--glow-size)) var(--glow-color),
+  inset 0 0 calc(96 * var(--glow-size)) var(--glow-color),
+  inset 0 0 calc(150 * var(--glow-size)) var(--glow-color);
+  position: relative;
+  top: 17vh;
+  width: 80vh;
+  height: 80vh;
+  margin: auto;
+  transform: rotate(45deg);
+}
+
+@keyframes centerline {
+  from {
+    height: 3px;
+    transform: scale(0) rotate(45deg);
+    top: 0;
+    left: -3.8vh;
+  }
+
+  to {
+    height: 3px;
+    transform: scale(2) rotate(45deg);
+    top: 41vh;
+    left: 36vh;
+  }
+}
+
+.center-line {
+  height: 0;
+  --glow-size: 0.25px;
+  --glow-color: #90f;
+  background-color: white;
+  width: 10%;
+  box-shadow: 0 0 calc(7 * var(--glow-size)) white,
+  0 0 calc(11 * var(--glow-size)) white,
+  0 0 calc(17 * var(--glow-size)) white,
+  0 0 calc(26 * var(--glow-size)) white,
+  0 0 calc(40 * var(--glow-size)) var(--glow-color),
+  0 0 calc(62 * var(--glow-size)) var(--glow-color),
+  0 0 calc(96 * var(--glow-size)) var(--glow-color),
+  0 0 calc(150 * var(--glow-size)) var(--glow-color);
+  position: absolute;
+  animation: centerline 2.4s cubic-bezier(.9, 0, .9, .6) infinite;
+}
+
+.two {
+  animation-delay: 0.8s;
+}
+
+.three {
+  animation-delay: 1.6s;
+}
+	</style>
+  </head>
+  <body>
+    <div class="sky">
+      <div class="skybox">
+        <div class="sun"></div>
+      </div>
+    </div>
+    <div class="ground">
+      <div class="edge">
+        <div class="center-line"></div>
+        <div class="center-line two"></div>
+        <div class="center-line three"></div>
+      </div>
+    </div>
+    <script>
+      const skybox = document.querySelector('.skybox');
+	  const stars = [...'✹✸✷✶⭒⭑✭✮⛤☆★✦'];
+	  const pick = (a) => a[Math.floor(Math.random() * a.length)];
+	  for (let i = 0; i < 200; i++) {
+	    const star = document.createElement('div');
+		star.appendChild(new Text(pick(stars)));
+		star.setAttribute('class', 'star');
+		star.style.setProperty('top', `${Math.floor(Math.random() * 500) - 400}%`);
+		star.style.setProperty('left', `${Math.floor(Math.random() * 100)}%`);
+		star.style.setProperty('font-size', `0.${Math.floor(Math.random() * 9) + 1}em`);
+	    skybox.appendChild(star);
+	  }
+    </script>
+    <script>
+      window.scrollTo(0, 0);
+    </script>
+  </body>
+</html>
